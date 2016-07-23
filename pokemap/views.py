@@ -93,7 +93,7 @@ def encode(cellid):
 def find_poi(api, lat, lng):
 
 
-	pokemon_list=json.load(open('pokemon.json'))
+	pokemon_list=json.load(open('./pokemon.json'))
 
 	poi = []
 	step_size = 0.0015
