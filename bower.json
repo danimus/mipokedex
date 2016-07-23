@@ -1,0 +1,23 @@
+{
+  "name": "lapokedex",
+  "homepage": "https://github.com/ignasivegas/lapokedex",
+  "authors": [
+    "Dani Álvarez <dani@danimus.com>"
+  ],
+  "description": "Pokemon Map Finder",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "angular-google-maps": "^2.3.3"
+  }
+}

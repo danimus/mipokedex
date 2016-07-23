@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" options="options" control='map.control' draggable="true">
+                <ui-gmap-markers models="pokemonMarkers" coords="'self'" icon="'icon'" options="'options'" fit="true"∫>
+                    <ui-gmap-windows show="pokemon_name">
+                        <div ng-non-bindable>{{pokemon_name}}</div>
+                    </ui-gmap-windows>
+                </ui-gmap-markers>
+            </ui-gmap-google-map>
+        </div>
+    </div>
+</div>
