@@ -59,6 +59,9 @@ def PokemonLocation(request, latitude, longitude):
 	data = find_poi(api, POSITION[0], POSITION[1])
 	return HttpResponse(json.dumps(data))
 
+def home(request):
+	return render(request, 'pokemap/index.html')
+
 
 
 def get_pos_by_name(location_name):

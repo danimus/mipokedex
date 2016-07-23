@@ -6,6 +6,7 @@ app_name = 'pokemap'
 urlpatterns = [
 
     url(r'^api/(?P<latitude>(\-?\d+(\.\d+)?)+)/(?P<longitude>(\-?\d+(\.\d+)?)+)$', views.PokemonLocation),
+    url(r'^$', views.home, name='home'),
 
 ]
 
