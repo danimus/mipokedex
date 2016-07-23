@@ -19,7 +19,7 @@ function printMap(locations, lat, long) {
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
             text: 'Test',
-            icon: "https://ugc.pokevision.com/images/pokemon/" + locations[i].pokemon_data.pokemon_id + ".png",
+            icon: "/static/img/pokemon/" + locations[i].pokemon_data.pokemon_id + ".png",
             map: map
         });
 
