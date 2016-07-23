@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('MiPokedexApp', ['ui.router']);
+var app = angular.module('MiPokedexApp', ['ui.router','uiGmapgoogle-maps']);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -17,6 +17,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     //$locationProvider.html5Mode(true);
 
 });
+
+app.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyByk399DfLeIwm1y64P-hMlYhUkC9avX88',
+        v: '3.20',
+        libraries: 'weather,geometry,visualization'
+    });
+})
+
 
 app.directive('updateTitle', ['$rootScope', '$timeout',
     function($rootScope, $timeout) {

@@ -17,14 +17,14 @@
     <script src="/static/components/angular/angular.min.js"></script>
     <script src="/static/components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
+    <script src='/static/components/lodash/dist/lodash.min.js'></script>
+    <script src='/static/components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
+    <script src='/static/components/angular-google-maps/dist/angular-google-maps.min.js'></script>
 
-    <script src="/static/js/scripts.js"></script>
+
+    <!--<script src="/static/js/scripts.js"></script>-->
     <link href="/static/css/style.css" rel="stylesheet"/>
     <script src="/static/js/app.js"></script>
-
-    <script>
-        window.onload = loadScript;
-    </script>
 
 </head>
 <body>
@@ -54,9 +54,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary">
-                <div id="googleMap" style="min-height:400px;" class="panel-body">
-                    <div class="spinner"></div>
-                </div>
+                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
             </div>
         </div>
     </div>
