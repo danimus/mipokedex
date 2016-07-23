@@ -120,7 +120,10 @@ def find_poi(api, lat, lng):
 	                        pokemon_ids = pokekey.split('-')
 	                        pokemon['pokemon_name'] = pokemon_list[pokemon_ids[1]]
 	                        pokemon['hides_at'] = time.time() + pokemon['time_till_hidden_ms']/1000
-	                        poi.append(pokemon)
+                            pokemon['icon'] = 'static/img/pokemon/' + pokemon_ids[1] +'.png'
+                            pokemon['id'] = pokemon['encounter_id']
+                            pokemon['coords'] = ('latitude',pokemon['latitude']),('longitude',pokemon['longitude'])
+                            poi.append(pokemon)
 
         # time.sleep(0.51)
     # new dict, binary data

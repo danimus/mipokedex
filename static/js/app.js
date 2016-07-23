@@ -2,6 +2,7 @@
 
 var app = angular.module('MiPokedexApp', ['ui.router','uiGmapgoogle-maps']);
 
+
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $stateProvider
@@ -23,10 +24,9 @@ app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyByk399DfLeIwm1y64P-hMlYhUkC9avX88',
         v: '3',
-        libraries: 'weather,geometry,visualization',
+        libraries: 'weather,geometry,visualization'
     });
-})
-
+});
 
 app.directive('updateTitle', ['$rootScope', '$timeout',
     function($rootScope, $timeout) {
@@ -35,7 +35,7 @@ app.directive('updateTitle', ['$rootScope', '$timeout',
 
                 var listener = function(event, toState) {
 
-                    var title = 'SharkScore';
+                    var title = 'MiPokedex';
                     if (toState.data && toState.data.pageTitle) title = "MiPokedex | " + toState.data.pageTitle;
 
                     $timeout(function() {
