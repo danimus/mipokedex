@@ -7,7 +7,7 @@ body{
 }
 
 #logo{
-
+    max-height: 36px;
 }
 
 .navbar-custom .icon-bar {
@@ -36,7 +36,7 @@ body{
 }
 
 #main{
-    margin-top: 10px;
+   padding-top: 10px;
 }
 
 #main, #main>.row {
