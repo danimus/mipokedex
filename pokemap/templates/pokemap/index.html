@@ -12,6 +12,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+    <link href="/static/css/style.css" rel="stylesheet" />
+
+
+
     <script>
         function printMap(locations, lat, long) {
 
@@ -86,7 +90,10 @@
 
 <body>
 <div class="container">
-    <h1>Mi Pokédex </h1>
+    <div class="header">
+        <img src="/static/img/logo.png" alt="logo" />
+        <h1>Mi Pokedex</h1>
+    </div>
     <div id="googleMap" style="height:380px;" class="col-md-10">
         <div class="spinner"></div>
     </div>
