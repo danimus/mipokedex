@@ -88,35 +88,41 @@ def encode(cellid):
     return ''.join(output)
 
 def find_poi(api, lat, lng):
-    poi = {'pokemons': {}, 'forts': []}
-    step_size = 0.0015
-    step_limit = 49
-    coords = generate_spiral(lat, lng, step_size, step_limit)
-    for coord in coords:
-        lat = coord['lat']
-        lng = coord['lng']
-        api.set_position(lat, lng, 0)
 
-        
-        #get_cellid was buggy -> replaced through get_cell_ids from pokecli
-        #timestamp gets computed a different way:
-        cell_ids = get_cell_ids(lat, lng)
-        timestamps = [0,] * len(cell_ids)
-        api.get_map_objects(latitude = util.f2i(lat), longitude = util.f2i(lng), since_timestamp_ms = timestamps, cell_id = cell_ids)
-        response_dict = api.call()
-        if 'status' in response_dict['responses']['GET_MAP_OBJECTS']:
-            if response_dict['responses']['GET_MAP_OBJECTS']['status'] == 1:
-                for map_cell in response_dict['responses']['GET_MAP_OBJECTS']['map_cells']:
-                    if 'wild_pokemons' in map_cell:
-                        for pokemon in map_cell['wild_pokemons']:
-                            pokekey = get_key_from_pokemon(pokemon)
-                            pokemon['hides_at'] = time.time() + pokemon['time_till_hidden_ms']/1000
-                            poi['pokemons'][pokekey] = pokemon
+
+	pokemon_list=json.load(open('pokemon.json'))
+
+	poi = []
+	step_size = 0.0015
+	step_limit = 49
+	coords = generate_spiral(lat, lng, step_size, step_limit)
+	for coord in coords:
+	    lat = coord['lat']
+	    lng = coord['lng']
+	    api.set_position(lat, lng, 0)
+
+	    
+	    #get_cellid was buggy -> replaced through get_cell_ids from pokecli
+	    #timestamp gets computed a different way:
+	    cell_ids = get_cell_ids(lat, lng)
+	    timestamps = [0,] * len(cell_ids)
+	    api.get_map_objects(latitude = util.f2i(lat), longitude = util.f2i(lng), since_timestamp_ms = timestamps, cell_id = cell_ids)
+	    response_dict = api.call()
+	    if 'status' in response_dict['responses']['GET_MAP_OBJECTS']:
+	        if response_dict['responses']['GET_MAP_OBJECTS']['status'] == 1:
+	            for map_cell in response_dict['responses']['GET_MAP_OBJECTS']['map_cells']:
+	                if 'wild_pokemons' in map_cell:
+	                    for pokemon in map_cell['wild_pokemons']:
+	                        pokekey = get_key_from_pokemon(pokemon)
+	                        pokemon_ids = pokekey.split('-')
+	                        pokemon['pokemon_name'] = pokemon_list[pokemon_ids[1]]
+	                        pokemon['hides_at'] = time.time() + pokemon['time_till_hidden_ms']/1000
+	                        poi.append(pokemon)
 
         # time.sleep(0.51)
     # new dict, binary data
     #print('POI dictionary: \n\r{}'.format(pprint.PrettyPrinter(indent=4).pformat(poi)))
-    return poi
+	return poi
 
 def get_key_from_pokemon(pokemon):
     return '{}-{}'.format(pokemon['spawnpoint_id'], pokemon['pokemon_data']['pokemon_id'])
