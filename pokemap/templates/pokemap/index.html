@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title> Mi Pokédex </title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
 <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <script>
 
 function printMap(locations, lat, long){
 
 	var mapProp = {
     	center:new google.maps.LatLng(lat, long),
-    	zoom:10,
+    	zoom:15,
     	mapTypeId:google.maps.MapTypeId.ROADMAP
  	};
   	var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
@@ -21,6 +28,7 @@ function printMap(locations, lat, long){
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
+        text: 'Test',
         icon: "http://ugc.pokevision.com/images/pokemon/"+locations[i].pokemon_data.pokemon_id+".png" ,
         map: map
       });
@@ -44,9 +52,7 @@ function success(position) {
     $.get( "http://localhost:8000/api/"+lat+"/"+long, function( data ) {
 	  
 	  var json = $.parseJSON(data);
-	  console.log(json);
 	  printMap(json, lat, long);
-
 
 	});
 
@@ -79,7 +85,10 @@ window.onload = loadScript;
 </head>
 
 <body>
-<div id="googleMap" style="width:500px;height:380px;"></div>
+<div class="container">
+<h1>Mi Pokédex </h1>
+<div id="googleMap" style="height:380px;" class="col-md-10"><div class="spinner"></div></div>
+</div>
 </body>
 
 </html>
