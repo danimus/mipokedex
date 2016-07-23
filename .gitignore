@@ -91,3 +91,6 @@ ENV/
 
 .idea/
 requirements.txt
+
+#Bower
+static/components
