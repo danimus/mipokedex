@@ -25,6 +25,7 @@
     <!--<script src="/static/js/scripts.js"></script>-->
     <link href="/static/css/style.css" rel="stylesheet"/>
     <script src="/static/js/app.js"></script>
+    <script src="/static/js/controllers/MapController.js"></script>
 
 </head>
 <body>
@@ -51,13 +52,7 @@
     </div>
 </div>
 <div class="container-fluid" id="main">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-primary">
-                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
-            </div>
-        </div>
-    </div>
+<ui-view></ui-view>
 </div>
 </body>
 </html>

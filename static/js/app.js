@@ -8,6 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('index', {
             url: "/",
             templateUrl: "/static/templates/pages/home.html",
+            controller: "MapController",
             data: {
                 pageTitle: 'Home'
             }
@@ -21,8 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyByk399DfLeIwm1y64P-hMlYhUkC9avX88',
-        v: '3.20',
-        libraries: 'weather,geometry,visualization'
+        v: '3',
+        libraries: 'weather,geometry,visualization',
     });
 })
 
