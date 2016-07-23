@@ -57,7 +57,7 @@ def PokemonLocation(request, latitude, longitude):
 	# print('Response dictionary: \n\r{}'.format(json.dumps(response_dict, indent=2)))
 	# print('Response dictionary: \n\r{}'.format(pprint.PrettyPrinter(indent=4).pformat(response_dict)))
 	data = find_poi(api, POSITION[0], POSITION[1])
-	return HttpResponse(json.dumps(data))
+	return HttpResponse(json.dumps(data), content_type="application/json")
 
 def home(request):
 	return render(request, 'pokemap/index.html')
