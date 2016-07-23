@@ -13,15 +13,16 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
         options: {
             streetViewControl: false,
             mapTypeControl: false,
-            scaleControl: false,
+            scaleControl: true,
             rotateControl: false,
-            zoomControl: false,
+            zoomControl: true,
             draggable: true,
             disableDefaultUI: true,
-            clickableIcons:false
-        },
-        styles:style
+            clickableIcons: false,
+            styles: style
+        }
     };
+
 
     $scope.findMe = function () {
         if ($scope.geolocationAvailable) {
@@ -41,6 +42,20 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
         }
     };
 
+    angular.extend($scope, {
+        searchbox: {
+            template:'static/templates/partials/searchbox.html',
+            events:{
+                places_changed: function (searchBox) {
+
+                }
+            }
+        },
+        options: {
+            scrollwheel: false
+        }
+    });
+
     GoogleMapApi.then(function(maps) {
 
         //$scope.findMe();
@@ -54,7 +69,5 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
         }).success(function (data) {
             $scope.pokemonMarkers = (data);
         });
-
-        console.log('Google Maps loaded');
     })
 }]);

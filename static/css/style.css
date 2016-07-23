@@ -7,7 +7,7 @@ body{
 }
 
 #logo{
-    max-height: 36px;
+    max-height: 32px;
 }
 
 .navbar-custom .icon-bar {
@@ -17,7 +17,7 @@ body{
 .navbar-custom {
     background-color: #168ccc;
     color:#fff;
-    padding: 5px 12px 15px 15px;
+    padding: 0 0 10px 10px;
 }
 
 .navbar-custom li>a:hover,.navbar-custom li>a:focus {
