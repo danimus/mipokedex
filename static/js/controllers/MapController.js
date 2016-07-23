@@ -45,8 +45,12 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
             template:'static/templates/partials/searchbox.html',
             events:{
                 places_changed: function (searchBox) {
-
+                    var loc = searchBox.getPlaces()[0].geometry.location;
+                    console.log(loc)
                 }
+            },
+            options:{
+                autocomplete:true
             }
         },
         options: {
@@ -56,7 +60,7 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
 
     GoogleMapApi.then(function(maps) {
 
-        //Get GEO, if not avialable, will use default coord values (Central Park)
+        //Get GEO, if not available, will use default coord values (Central Park)
         if ($scope.geolocationAvailable) {
 
             navigator.geolocation.getCurrentPosition(function (position) {
