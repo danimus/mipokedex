@@ -27,7 +27,7 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
 
     $scope.GetMarkers = function () {
 
-    //Will get markers with actual scope coord values
+        //Will get markers with actual scope coord values
         var httpRequest = $http({
             method: 'GET',
             dataType:'json',
@@ -39,24 +39,39 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
         });
     };
 
+    $scope.setCenter = function (latitude, longitude) {
+
+        //Update scope with new values
+        $scope.map.center = {
+            latitude: latitude,
+            longitude: longitude
+        };
+
+        //Submit scope. refresh map, submit new values to map.
+        $scope.$apply();
+        
+    };
+
 
     angular.extend($scope, {
         searchbox: {
             template:'static/templates/partials/searchbox.html',
             events:{
                 places_changed: function (searchBox) {
-                    var loc = searchBox.getPlaces()[0].geometry.location;
-                    console.log(loc)
+
+                    var place = searchBox.getPlaces();
+           
+                    $scope.setCenter(place[0].geometry.location.lat(), place[0].geometry.location.lng());
+                    $scope.GetMarkers();
                 }
             },
             options:{
-                autocomplete:true
+                autocomplete: false,
+                scrollwheel: false
             }
-        },
-        options: {
-            scrollwheel: false
         }
     });
+
 
     GoogleMapApi.then(function(maps) {
 
@@ -65,15 +80,8 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
 
             navigator.geolocation.getCurrentPosition(function (position) {
 
-                //Update scope with new values
-                $scope.map.center = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-
-                //Submit scope. refresh map, submit new values to map.
-                $scope.$apply();
-
+               
+                $scope.setCenter(position.coords.latitude, position.coords.longitude);
                 //download and print Markers
                 $scope.GetMarkers();
                 
