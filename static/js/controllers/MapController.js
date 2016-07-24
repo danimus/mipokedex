@@ -25,6 +25,7 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
         }
     };
 
+
     $scope.GetMarkers = function () {
 
         //Will get markers with actual scope coord values
@@ -46,7 +47,6 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
             latitude: latitude,
             longitude: longitude
         };
-
         //Submit scope. refresh map, submit new values to map.
         $scope.$apply();
         
@@ -66,16 +66,14 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
                 }
             },
             options:{
-                autocomplete: false,
-                scrollwheel: false
+                autocomplete: false
             }
         }
     });
 
-
-    GoogleMapApi.then(function(maps) {
-
+    $scope.getLocation = function(){
         //Get GEO, if not available, will use default coord values (Central Park)
+        
         if ($scope.geolocationAvailable) {
 
             navigator.geolocation.getCurrentPosition(function (position) {
@@ -92,6 +90,13 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
             console.log("Geo not available.");
             $scope.GetMarkers();
         }
+
+    }
+
+
+    GoogleMapApi.then(function(maps) {
+
+        $scope.getLocation();
 
         $scope.pokemonMarkers = [];
         
