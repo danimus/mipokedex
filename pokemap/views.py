@@ -1,3 +1,7 @@
+# Celery
+from celery import group
+from pokemap.tasks import find_poi
+
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
@@ -25,113 +29,59 @@ from google.protobuf.internal import encoder
 from geopy.geocoders import GoogleV3
 from s2sphere import Cell, CellId, LatLng
 
-
+def home(request):
+	return render(request, 'pokemap/index.html')
 
 # Create your views here.
 def PokemonLocation(request, latitude, longitude):
 
 	USERNAME = 'lapokedex'
 	PASSWORD = '123456aA?'
-	POSITION = (float(latitude), float(longitude),0)
+	POSITION = (float(latitude), float(longitude))
 	AUTH_SERVICE='ptc'
 
-	# instantiate pgoapi
-	api = PGoApi()
-
-	# provide player position on the earth
-	api.set_position(*POSITION)
-
-	if not api.login(AUTH_SERVICE, USERNAME, PASSWORD):
-	    return
-
-	# chain subrequests (methods) into one RPC call
-
-	# get player profile call
-	# ----------------------
-	api.get_player()
-
-	# execute the RPC call
-	response_dict = api.call()
-
-	# apparently new dict has binary data in it, so formatting it with this method no longer works, pprint works here but there are other alternatives    
-	# print('Response dictionary: \n\r{}'.format(json.dumps(response_dict, indent=2)))
-	# print('Response dictionary: \n\r{}'.format(pprint.PrettyPrinter(indent=4).pformat(response_dict)))
-	data = find_poi(api, POSITION[0], POSITION[1])
-	return HttpResponse(json.dumps(data), content_type="application/json")
-
-def home(request):
-	return render(request, 'pokemap/index.html')
-
-
-
-def get_pos_by_name(location_name):
-    geolocator = GoogleV3()
-    loc = geolocator.geocode(location_name)
-    return (loc.latitude, loc.longitude, loc.altitude)
-
-def get_cell_ids(lat, long, radius = 10):
-    origin = CellId.from_lat_lng(LatLng.from_degrees(lat, long)).parent(15)
-    walk = [origin.id()]
-    right = origin.next()
-    left = origin.prev()
-
-    # Search around provided radius
-    for i in range(radius):
-        walk.append(right.id())
-        walk.append(left.id())
-        right = right.next()
-        left = left.prev()
-
-    # Return everything
-    return sorted(walk)
-
-def encode(cellid):
-    output = []
-    encoder._VarintEncoder()(output.append, cellid)
-    return ''.join(output)
-
-def find_poi(api, lat, lng):
-
-
-	pokemon_list=json.load(open('./pokemon.json'))
-
-	poi = []
 	step_size = 0.0015
 	step_limit = 49
-	coords = generate_spiral(lat, lng, step_size, step_limit)
-	for coord in coords:
-	    lat = coord['lat']
-	    lng = coord['lng']
-	    api.set_position(lat, lng, 0)
+	coords = generate_spiral(POSITION[0], POSITION[1], step_size, step_limit)
 
-	    
-	    #get_cellid was buggy -> replaced through get_cell_ids from pokecli
-	    #timestamp gets computed a different way:
-	    cell_ids = get_cell_ids(lat, lng)
-	    timestamps = [0,] * len(cell_ids)
-	    api.get_map_objects(latitude = util.f2i(lat), longitude = util.f2i(lng), since_timestamp_ms = timestamps, cell_id = cell_ids)
-	    response_dict = api.call()
-	    if 'status' in response_dict['responses']['GET_MAP_OBJECTS']:
-	        if response_dict['responses']['GET_MAP_OBJECTS']['status'] == 1:
-	            for map_cell in response_dict['responses']['GET_MAP_OBJECTS']['map_cells']:
-	                if 'wild_pokemons' in map_cell:
-	                    for pokemon in map_cell['wild_pokemons']:
-	                        pokekey = get_key_from_pokemon(pokemon)
-	                        pokemon_ids = pokekey.split('-')
-	                        pokemon['pokemon_name'] = pokemon_list[pokemon_ids[1]]
-	                        pokemon['hides_at'] = time.time() + pokemon['time_till_hidden_ms']/1000
-                            pokemon['icon'] = 'static/img/pokemon/' + pokemon_ids[1] +'.png'
-                            pokemon['id'] = pokemon['encounter_id']
-                            pokemon['coords'] = ('latitude',pokemon['latitude']),('longitude',pokemon['longitude'])
-                            poi.append(pokemon)
 
-        # time.sleep(0.51)
-    # new dict, binary data
-    #print('POI dictionary: \n\r{}'.format(pprint.PrettyPrinter(indent=4).pformat(poi)))
-	return poi
+	job = group([
+	    find_poi.subtask((coords[0:10],)),
+	    find_poi.subtask((coords[10:20],)),
+	    find_poi.subtask((coords[20:30],)),
+	    find_poi.subtask((coords[30:40],)),
+	    find_poi.subtask((coords[40:50],)),
+	])
 
-def get_key_from_pokemon(pokemon):
-    return '{}-{}'.format(pokemon['spawnpoint_id'], pokemon['pokemon_data']['pokemon_id'])
+
+
+	print " "
+	print " "
+	print "START"
+	print " "
+	print " "
+
+	result = job.apply_async()
+	data = result.join()
+
+	json_dict  = []
+
+	if data != []:
+		for d in data:
+			json_dict += d
+		print json_dict
+
+	print " "
+	print " "
+	print "END"
+	print " "
+	print " "
+
+
+	##find_poi(api, POSITION[0], POSITION[1])
+	return HttpResponse(json.dumps(json_dict), content_type="application/json")
+
+
 
 def generate_spiral(starting_lat, starting_lng, step_size, step_limit):
     coords = [{'lat': starting_lat, 'lng': starting_lng}]
@@ -139,7 +89,7 @@ def generate_spiral(starting_lat, starting_lng, step_size, step_limit):
     rlow = 0.0
     rhigh = 0.0005
 
-    while steps < step_limit:
+    while steps < 49:
         while 2 * x * d < m and steps < step_limit:
             x = x + d
             steps += 1

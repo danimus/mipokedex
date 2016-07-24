@@ -25,6 +25,18 @@ SECRET_KEY = '&2830egfd=9!smas55ds^83$7k#ae*6f@u6%q=jus9g8kck$vy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
+# Celery settings
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+CELERY_RESULT_BACKEND = 'amqp'
+
+
+
 ALLOWED_HOSTS = []
 
 
