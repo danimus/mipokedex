@@ -7,32 +7,20 @@ body{
 }
 
 #logo{
-    max-height: 32px;
+    max-height: 40px;
 }
 
-.navbar-custom .icon-bar {
-    background-color:#fff;
-}
 
-.navbar-custom {
-    background-color: #168ccc;
-    color:#fff;
-    padding: 0 0 10px 10px;
-}
 
-.navbar-custom li>a:hover,.navbar-custom li>a:focus {
-    background-color:#49bfff;
-}
-
-.navbar-custom a{
-    color:#fefefe;
-}
-
-.navbar-custom .form-control:focus {
+.navbar .form-control:focus {
     border-color: #49bfff;
     outline: 0;
     -webkit-box-shadow: inset 0 0 0;
     box-shadow: inset 0 0 0;
+}
+
+.navbar-brand{
+    display: table;
 }
 
 #main{
