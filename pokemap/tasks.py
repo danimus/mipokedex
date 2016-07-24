@@ -80,6 +80,7 @@ def find_poi(coords):
 	                    for pokemon in map_cell['wild_pokemons']:
 	                        pokekey = '{}-{}'.format(pokemon['spawnpoint_id'], pokemon['pokemon_data']['pokemon_id'])
 	                        pokemon['hides_at'] = time.time() + pokemon['time_till_hidden_ms']/1000
+	                        pokemon['icon'] = '/static/img/pokemon/'+str(pokemon['pokemon_data']['pokemon_id'])+'.png'
 	                        poi.append(pokemon)
 
 
