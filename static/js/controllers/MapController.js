@@ -1,9 +1,27 @@
-app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMapApi', function ($scope,$http,$log,GoogleMapApi) {
+app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogleMapApi', function ($scope, $http, $log, GoogleMapApi) {
 
     //Check if browser has geo activated
     $scope.geolocationAvailable = navigator.geolocation ? true : false;
 
-    var style = [{"featureType":"landscape","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"road.highway","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]},{"featureType":"poi","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]}];
+    var style = [{
+        "featureType": "landscape",
+        "stylers": [{"hue": "#FFBB00"}, {"saturation": 43.400000000000006}, {"lightness": 37.599999999999994}, {"gamma": 1}]
+    }, {
+        "featureType": "road.highway",
+        "stylers": [{"hue": "#FFC200"}, {"saturation": -61.8}, {"lightness": 45.599999999999994}, {"gamma": 1}]
+    }, {
+        "featureType": "road.arterial",
+        "stylers": [{"hue": "#FF0300"}, {"saturation": -100}, {"lightness": 51.19999999999999}, {"gamma": 1}]
+    }, {
+        "featureType": "road.local",
+        "stylers": [{"hue": "#FF0300"}, {"saturation": -100}, {"lightness": 52}, {"gamma": 1}]
+    }, {
+        "featureType": "water",
+        "stylers": [{"hue": "#0078FF"}, {"saturation": -13.200000000000003}, {"lightness": 2.4000000000000057}, {"gamma": 1}]
+    }, {
+        "featureType": "poi",
+        "stylers": [{"hue": "#00FF6A"}, {"saturation": -1.0989010989011234}, {"lightness": 11.200000000000017}, {"gamma": 1}]
+    }];
 
     //Map initial config
     $scope.map = {
@@ -31,12 +49,12 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
         //Will get markers with actual scope coord values
         var httpRequest = $http({
             method: 'GET',
-            dataType:'json',
-            url: '/api/'+$scope.map.center.latitude+'/'+$scope.map.center.longitude
+            dataType: 'json',
+            url: '/api/' + $scope.map.center.latitude + '/' + $scope.map.center.longitude
 
         }).success(function (data) {
             $scope.pokemonMarkers = (data);
-            
+
         });
     };
 
@@ -47,58 +65,66 @@ app.controller('MapController', ['$scope','$http','uiGmapLogger','uiGmapGoogleMa
             latitude: latitude,
             longitude: longitude
         };
+
+        var user_location_marker = {
+            position: {latitude: latitude, longitude:longitude},
+            title:"You are here"
+        };
+
+        $scope.pokemonMarkers.push(user_location_marker);
+        
         //Submit scope. refresh map, submit new values to map.
         $scope.$apply();
-        
+
     };
 
 
     angular.extend($scope, {
         searchbox: {
-            template:'static/templates/partials/searchbox.html',
-            events:{
+            template: 'static/templates/partials/searchbox.html',
+            events: {
                 places_changed: function (searchBox) {
 
                     var place = searchBox.getPlaces();
-           
+
                     $scope.setCenter(place[0].geometry.location.lat(), place[0].geometry.location.lng());
                     $scope.GetMarkers();
                 }
             },
-            options:{
+            options: {
                 autocomplete: false
             }
         }
     });
 
-    $scope.getLocation = function(){
+    $scope.getLocation = function () {
         //Get GEO, if not available, will use default coord values (Central Park)
-        
+
         if ($scope.geolocationAvailable) {
 
             navigator.geolocation.getCurrentPosition(function (position) {
 
-               
                 $scope.setCenter(position.coords.latitude, position.coords.longitude);
                 //download and print Markers
                 $scope.GetMarkers();
-                
+
 
             });
 
-        } else{
+        } else {
             console.log("Geo not available.");
             $scope.GetMarkers();
         }
 
-    }
+    };
 
 
-    GoogleMapApi.then(function(maps) {
+    GoogleMapApi.then(function (maps) {
 
         $scope.getLocation();
 
         $scope.pokemonMarkers = [];
-        
-    })
+
+    });
+
 }]);
