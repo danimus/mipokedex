@@ -53,6 +53,15 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
             url: '/api/' + $scope.map.center.latitude + '/' + $scope.map.center.longitude
 
         }).success(function (data) {
+
+            var user_location_marker = {
+                latitude: $scope.map.center.latitude,
+                longitude:$scope.map.center.longitude,
+                name:"You are here",
+                encounter_id: 0,
+                icon: 'static/img/user_icon.png'
+            };
+            data.push(user_location_marker);
             $scope.pokemonMarkers = (data);
 
         });
@@ -66,15 +75,6 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
             longitude: longitude
         };
 
-        var user_location_marker = {
-            position: {latitude: latitude, longitude:longitude},
-            title:"You are here",
-            id: 0,
-            icon: '/static/img/here.png'
-        };
-
-        $scope.pokemonMarkers.push(user_location_marker);
-        
         //Submit scope. refresh map, submit new values to map.
         $scope.$apply();
 
