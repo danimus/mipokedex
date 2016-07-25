@@ -1,4 +1,4 @@
-app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogleMapApi', function ($scope, $http, $log, GoogleMapApi) {
+app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogleMapApi','spinnerService', function ($scope, $http, $log, GoogleMapApi,spinnerService) {
 
     //Check if browser has geo activated
     $scope.geolocationAvailable = navigator.geolocation ? true : false;
@@ -46,6 +46,7 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
 
     $scope.GetMarkers = function () {
 
+        spinnerService.show('mapSpinner');
         //Will get markers with actual scope coord values
         var httpRequest = $http({
             method: 'GET',
@@ -64,6 +65,8 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
             data.push(user_location_marker);
             $scope.pokemonMarkers = (data);
 
+        }).finally(function () {
+            spinnerService.hide('mapSpinner');
         });
     };
 

@@ -42,3 +42,7 @@ body{
 .angular-google-map-container {
     height: 400px;
 }
+
+#map-spinner{
+margin-top: -10px;
+}
