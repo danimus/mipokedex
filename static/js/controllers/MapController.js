@@ -68,7 +68,9 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
 
         var user_location_marker = {
             position: {latitude: latitude, longitude:longitude},
-            title:"You are here"
+            title:"You are here",
+            id: 0,
+            icon: '/static/img/here.png'
         };
 
         $scope.pokemonMarkers.push(user_location_marker);
