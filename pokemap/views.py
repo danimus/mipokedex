@@ -35,31 +35,18 @@ def home(request):
 # Create your views here.
 def PokemonLocation(request, latitude, longitude):
 
-	USERNAME = 'lapokedex'
-	PASSWORD = '123456aA?'
-	POSITION = (float(latitude), float(longitude))
-	AUTH_SERVICE='ptc'
-
+	position = (float(latitude), float(longitude),0)
 	step_size = 0.0015
 	step_limit = 49
-	coords = generate_spiral(POSITION[0], POSITION[1], step_size, step_limit)
-
+	coords = generate_spiral(position[0], position[1], step_size, step_limit)
 
 	job = group([
-	    find_poi.subtask((coords[0:10],)),
-	    find_poi.subtask((coords[10:20],)),
-	    find_poi.subtask((coords[20:30],)),
-	    find_poi.subtask((coords[30:40],)),
-	    find_poi.subtask((coords[40:50],)),
+		find_poi.subtask((coords[0:10],position,)),
+		find_poi.subtask((coords[10:20],position,)),
+		find_poi.subtask((coords[20:30],position,)),
+		find_poi.subtask((coords[30:40],position,)),
+		find_poi.subtask((coords[40:50],position,)),
 	])
-
-
-
-	print " "
-	print " "
-	print "START"
-	print " "
-	print " "
 
 	result = job.apply_async()
 	data = result.join()
@@ -71,38 +58,31 @@ def PokemonLocation(request, latitude, longitude):
 			json_dict += d
 		print json_dict
 
-	print " "
-	print " "
-	print "END"
-	print " "
-	print " "
-
-
-	##find_poi(api, POSITION[0], POSITION[1])
+	##find_poi(api, position[0], position[1])
 	return HttpResponse(json.dumps(json_dict), content_type="application/json")
 
 
 
 def generate_spiral(starting_lat, starting_lng, step_size, step_limit):
-    coords = [{'lat': starting_lat, 'lng': starting_lng}]
-    steps,x,y,d,m = 1, 0, 0, 1, 1
-    rlow = 0.0
-    rhigh = 0.0005
+	coords = [{'lat': starting_lat, 'lng': starting_lng}]
+	steps,x,y,d,m = 1, 0, 0, 1, 1
+	rlow = 0.0
+	rhigh = 0.0005
 
-    while steps < 49:
-        while 2 * x * d < m and steps < step_limit:
-            x = x + d
-            steps += 1
-            lat = x * step_size + starting_lat + random.uniform(rlow, rhigh)
-            lng = y * step_size + starting_lng + random.uniform(rlow, rhigh)
-            coords.append({'lat': lat, 'lng': lng})
-        while 2 * y * d < m and steps < step_limit:
-            y = y + d
-            steps += 1
-            lat = x * step_size + starting_lat + random.uniform(rlow, rhigh)
-            lng = y * step_size + starting_lng + random.uniform(rlow, rhigh)
-            coords.append({'lat': lat, 'lng': lng})
+	while steps < 49:
+		while 2 * x * d < m and steps < step_limit:
+			x = x + d
+			steps += 1
+			lat = x * step_size + starting_lat + random.uniform(rlow, rhigh)
+			lng = y * step_size + starting_lng + random.uniform(rlow, rhigh)
+			coords.append({'lat': lat, 'lng': lng})
+		while 2 * y * d < m and steps < step_limit:
+			y = y + d
+			steps += 1
+			lat = x * step_size + starting_lat + random.uniform(rlow, rhigh)
+			lng = y * step_size + starting_lng + random.uniform(rlow, rhigh)
+			coords.append({'lat': lat, 'lng': lng})
 
-        d = -1 * d
-        m = m + 1
-    return coords
+		d = -1 * d
+		m = m + 1
+	return coords
