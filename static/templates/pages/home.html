@@ -6,8 +6,8 @@
         <div class="panel panel-primary">
             <ui-gmap-google-map center='map.center' zoom='map.zoom' bounds="map.bounds" options="map.options" control='map.control' draggable="true">
                 <ui-gmap-markers models="pokemonMarkers" coords="'self'" icon="'icon'" options="'options'" fit="true" idkey="'encounter_id'">
-                    <ui-gmap-windows show="pokemon_name">
-                        <div ng-non-bindable>{{pokemon_name}}</div>
+                    <ui-gmap-windows show="name">
+                        <div ng-non-bindable>{{name}}</div>
                     </ui-gmap-windows>
                 </ui-gmap-markers>
                 <ui-gmap-search-box template="searchbox.template" options="searchbox.options" events="searchbox.events"></ui-gmap-search-box>
