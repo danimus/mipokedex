@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('MiPokedexApp', ['ui.router','uiGmapgoogle-maps']);
+var app = angular.module('MiPokedexApp', ['ui.router','uiGmapgoogle-maps','angularSpinners']);
 
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
