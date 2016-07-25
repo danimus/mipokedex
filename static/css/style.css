@@ -10,8 +10,6 @@ body{
     max-height: 40px;
 }
 
-
-
 .navbar .form-control:focus {
     border-color: #49bfff;
     outline: 0;
@@ -24,15 +22,11 @@ body{
 }
 
 #main{
-   padding-top: 40px;
+    padding-top: 40px;
 }
 
 #main, #main>.row {
     height:100%;
-}
-
-#main>.row {
-    overflow-y:scroll;
 }
 
 #left {
@@ -44,5 +38,5 @@ body{
 }
 
 #map-spinner{
-margin-top: -10px;
+    margin-top: -10px;
 }
