@@ -42,3 +42,17 @@ body{
 #map-spinner{
     margin-top: -10px;
 }
+
+.user_label{
+    background-color: white;
+    opacity: inherit !important;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 3px;
+    font-weight: bold;
+}
+
+.pokemon_label{
+    font-weight: bold;
+    
+}

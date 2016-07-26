@@ -1,4 +1,21 @@
-app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogleMapApi','spinnerService', function ($scope, $http, $log, GoogleMapApi,spinnerService) {
+ function secondsToTime(ms){
+
+    var x = ms / 1000
+    var seconds = x % 60
+    x /= 60
+    var minutes = x % 60
+    x /= 60
+    var hours = x % 24
+    x /= 24
+    var days = x
+    console.log(minutes);
+    console.log(seconds);
+
+    return Math.floor(minutes) + ":" + Math.floor(seconds); 
+}
+
+
+app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogleMapApi', 'spinnerService', function ($scope, $http, $log, GoogleMapApi,spinnerService) {
 
     //Check if browser has geo activated
     $scope.geolocationAvailable = navigator.geolocation ? true : false;
@@ -29,7 +46,7 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
             latitude: 40.7829,
             longitude: 73.9654
         },
-        zoom: 15,
+        zoom: 16,
         options: {
             streetViewControl: false,
             mapTypeControl: false,
@@ -58,13 +75,36 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
             var user_location_marker = {
                 latitude: $scope.map.center.latitude,
                 longitude:$scope.map.center.longitude,
-                name:"<strong>You are here</strong>",
+                // name:"<strong>You are here</strong>",
+                options: {
+                    labelContent : "You are here!",
+                    labelAnchor: "36 67",
+                    labelClass: 'user_label',
+                    // labelStyle: "newstyle",
+                    labelInBackground: true
+                    },
                 encounter_id: 0,
             };
+            
+
+            for (var i = data.length - 1; i >= 0; i--) {
+                data[i].options = {
+                    labelContent : '<time-pokemon>'+secondsToTime(data[i].time_till_hidden_ms)+'</time-pokemon>',
+                    labelAnchor: "20 55",
+                    labelClass: 'pokemon_label',
+                    // labelStyle: "newstyle",
+                    labelInBackground: true
+                }
+            };
+            
             data.push(user_location_marker);
             $scope.pokemonMarkers = (data);
 
-        }).finally(function () {
+        })
+        .error(function(data, status) {
+            $('#alert_connection').removeClass('hidden');
+        })
+        .finally(function () {
             spinnerService.hide('mapSpinner');
         });
     };

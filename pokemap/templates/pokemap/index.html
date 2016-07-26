@@ -26,7 +26,9 @@
 
     <link href="/static/css/style.css" rel="stylesheet"/>
     <script src="/static/js/app.js"></script>
+    <script src="/static/js/directives.js"></script>
     <script src="/static/js/controllers/MapController.js"></script>
+    <script src="/static/js/ads.js"></script>
     <base href="/">
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -58,7 +60,11 @@
     <div class="col-md-10">
     <ui-view></ui-view>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2" style="max-height: 450px;">
+        <div class="hidden" id="no_blocker">
+            We noticed that you are using an Ad Block :)<br>
+            We understand that generally ads are annoying, that's why we don't care, but please, share MiPokédex with your friends!
+        </div>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- Pokedex-right -->
         <ins class="adsbygoogle"
@@ -72,6 +78,7 @@
     </div>
 </div>
 
+
 <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:inline-block;width:728px;height:90px"
@@ -84,9 +91,8 @@
 <adsense ad-client="ca-pub-0717265133828882" ad-slot="6902952033" inline-style="display:inline-block;width:728px;height:90px" ad-format="auto"></adsense>
 </div> -->
 
-<div class="col-md-12">
+<!-- <div class="col-md-10">
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Pokedex-resp -->
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-0717265133828882"
@@ -95,11 +101,16 @@
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
-
+</div> -->
+<script>
+      if( window.canRunAds === undefined ){
+        // adblocker detected, show fallback
+        $('#no_blocker').removeClass('hidden');
+      }
+    </script>
 
 <footer>
-  <div class="col-lg-12">
+  <div class="col-md-12 text-center">
   <p>© mipokedex.com 2016. All rights reserved.</p>
   </div>
 </footer>
