@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&2830egfd=9!smas55ds^83$7k#ae*6f@u6%q=jus9g8kck$vy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 
@@ -37,7 +37,7 @@ CELERY_RESULT_BACKEND = 'amqp'
 
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mipokedex.com,www.mipokedex.com']
 
 
 # Application definition
