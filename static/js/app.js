@@ -28,23 +28,23 @@ app.config(function(uiGmapGoogleMapApiProvider) {
     });
 });
 
-app.directive('updateTitle', ['$rootScope', '$timeout',
-    function($rootScope, $timeout) {
-        return {
-            link: function(scope, element) {
+// app.directive('updateTitle', ['$rootScope', '$timeout',
+//     function($rootScope, $timeout) {
+//         return {
+//             link: function(scope, element) {
 
-                var listener = function(event, toState) {
+//                 var listener = function(event, toState) {
 
-                    var title = 'MiPokedex';
-                    if (toState.data && toState.data.pageTitle) title = "MiPokedex | " + toState.data.pageTitle;
+//                     var title = 'MiPokedex';
+//                     if (toState.data && toState.data.pageTitle) title = "MiPokedex | " + toState.data.pageTitle;
 
-                    $timeout(function() {
-                        element.text(title);
-                    }, 0, false);
-                };
+//                     $timeout(function() {
+//                         element.text(title);
+//                     }, 0, false);
+//                 };
 
-                $rootScope.$on('$stateChangeSuccess', listener);
-            }
-        };
-    }
-]);
+//                 $rootScope.$on('$stateChangeSuccess', listener);
+//             }
+//         };
+//     }
+// ]);
