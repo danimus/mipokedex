@@ -15,6 +15,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             }
         });
 
+    $stateProvider
+        .state('contact', {
+            url: "/contact",
+            templateUrl: "/static/templates/pages/contact.html",
+            controller: "ConctactController",
+            data: {
+                pageTitle: 'Contact'
+            }
+        });
+
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
 
