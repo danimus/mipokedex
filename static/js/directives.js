@@ -8,7 +8,6 @@ lapokedexDirectives.directive('timePokemon', function() {
 	function link(scope, element, attr){
 
 		var data = scope.source;
-		console.log(data);
 
 	}	
   	return {
