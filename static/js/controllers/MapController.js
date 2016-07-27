@@ -8,8 +8,6 @@
     var hours = x % 24
     x /= 24
     var days = x
-    console.log(minutes);
-    console.log(seconds);
 
     return Math.floor(minutes) + ":" + Math.floor(seconds); 
 }
@@ -89,7 +87,7 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
 
             for (var i = data.length - 1; i >= 0; i--) {
                 data[i].options = {
-                    labelContent : '<time-pokemon>'+secondsToTime(data[i].time_till_hidden_ms)+'</time-pokemon>',
+                    labelContent : '<span id=timepokemon>'+secondsToTime(data[i].time_till_hidden_ms)+'</pokemon>',
                     labelAnchor: "20 55",
                     labelClass: 'pokemon_label',
                     // labelStyle: "newstyle",
@@ -99,6 +97,14 @@ app.controller('MapController', ['$scope', '$http', 'uiGmapLogger', 'uiGmapGoogl
             
             data.push(user_location_marker);
             $scope.pokemonMarkers = (data);
+
+            //TODO, use a watcher? This is just a test.
+            // var markers = $(document).find("#timepokemon");
+            // console.log("dssfasd");
+            // console.log(markers);
+            //  for (var i = 0; i < markers.length; i++) {
+            //      console.log(markers[i].style);
+            //  }
 
         })
         .error(function(data, status) {

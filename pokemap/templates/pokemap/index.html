@@ -1,10 +1,23 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" ng-app="MiPokedexApp">
 <head>
-    <title update-title>Mi Pokédex</title>
+    <title update-title>Mi Pokédex | Find all the Pokemon near you! </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="shortcut icon" href="/static/img/favicon.gif"/>
+
+
+    <meta property="og:url"                content="https://www.mipokedex.com" />
+    <meta property="og:title"              content="MiPokédex | Find all the Pokemon near you!" />
+    <meta property="og:description"        content="Mi Pokédex shows you all the Pokémon around you at this exact time." />
+    <meta property="og:image"              content="https://scontent.fphl1-1.fna.fbcdn.net/v/t1.0-9/13775975_1703293183265307_5500424369683940708_n.png?oh=70bb27a629c81144827b8cc13dda8f21&oe=582E6D2F" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@mipokedex" />
+    <meta name="twitter:title" content="MiPokédex | Find all the Pokemon near you!" />
+    <meta name="twitter:description" content="Mi Pokédex shows you all the Pokémon around you at this exact time." />
+    <meta name="twitter:image" content="https://scontent.fphl1-1.fna.fbcdn.net/v/t1.0-9/13775975_1703293183265307_5500424369683940708_n.png?oh=70bb27a629c81144827b8cc13dda8f21&oe=582E6D2F" />
+
     <!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -49,12 +62,16 @@
         <a class="navbar-brand" href="/">
             <img id="logo" class="img-responsive" src="/static/img/logo.png" alt="MiPokedex Logo"/>
         </a>
-        <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
+        
     </div>
+    <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav navbar-right">
+            <li style="    margin-right: 40px;
+    margin-top: 8px;"><a href="/contact" target="/contact">Contact</a></li>
+
+          </ul>
+
+        </div>
 </div>
 <div class="row">
     <div class="col-md-10">
@@ -116,7 +133,6 @@
     </div>
 
 </div>
-
 
 
 
