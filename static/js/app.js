@@ -17,7 +17,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $stateProvider
         .state('contact', {
-            url: "contact",
+            url: "/contact",
             templateUrl: "/static/templates/pages/contact.html",
             controller: "ContactController",
             data: {
