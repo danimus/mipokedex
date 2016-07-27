@@ -32,7 +32,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyByk399DfLeIwm1y64P-hMlYhUkC9avX88',
+        key: 'AIzaSyAFjc4oJfg0a3e3KmdQBTtGjdTfBLLdltk',
         v: '3',
         libraries: 'places'
     });
