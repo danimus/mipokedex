@@ -54,5 +54,12 @@ body{
 
 .pokemon_label{
     font-weight: bold;
+
+}
+
+#no_blocker p{
+    line-height: 25px;
+    margin-top: 30px;
+    margin-bottom: 10px;
     
 }

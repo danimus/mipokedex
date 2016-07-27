@@ -54,8 +54,35 @@
 
     </script>
 
+    <script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
 </head>
 <body>
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=345715625513911";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="container-fluid" id="main">
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-header">
@@ -79,8 +106,12 @@
     </div>
     <div class="col-md-2" style="max-height: 450px;">
         <div class="hidden" id="no_blocker">
-            We noticed that you are using Ad Block :)<br>
-            We understand that usually ads are annoying, that's why we don't care. But please, share MiPokédex with your friends!
+            <p>We noticed that you are using Ad Block :)<br>
+            We understand that usually ads are annoying, that's why we don't care. But please, share MiPokédex with your friends!</p>
+            <br>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <br>
+            <div class="fb-share-button" data-href="https://www.mipokedex.com" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.mipokedex.com%2F&amp;src=sdkpreparse">Share</a></div>
         </div>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- Pokedex-right -->
