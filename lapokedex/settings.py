@@ -39,8 +39,8 @@ CELERY_RESULT_BACKEND = 'amqp'
 
 
 
-ALLOWED_HOSTS = ['mipokedex.com,www.mipokedex.com']
-#ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['mipokedex.com,www.mipokedex.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
