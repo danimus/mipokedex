@@ -2,7 +2,6 @@
 
 var app = angular.module('MiPokedexApp', ['ui.router','uiGmapgoogle-maps', 'angularSpinners', 'lapokedexDirectives']);
 
-
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $stateProvider
@@ -32,7 +31,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyBTKAzma0NVpnFLoT0cX_tGn0goM9j4NlI',
+        key: MAPS_API_KEY,
         v: '3',
         libraries: 'places'
     });

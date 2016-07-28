@@ -5,6 +5,7 @@ from pokemap.tasks import find_poi
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from django.conf import settings
 
 # Required imports
 import os
@@ -30,7 +31,8 @@ from geopy.geocoders import GoogleV3
 from s2sphere import Cell, CellId, LatLng
 
 def home(request):
-	return render(request, 'pokemap/index.html')
+
+	return render(request, 'pokemap/index.html', {"maps_api": settings.MAPS_KEY})
 
 # Create your views here.
 def PokemonLocation(request, latitude, longitude):

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +27,7 @@ SECRET_KEY = '&2830egfd=9!smas55ds^83$7k#ae*6f@u6%q=jus9g8kck$vy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-
+MAPS_KEY = 'AIzaSyBTKAzma0NVpnFLoT0cX_tGn0goM9j4NlI'
 
 # Celery settings
 
@@ -37,7 +39,8 @@ CELERY_RESULT_BACKEND = 'amqp'
 
 
 
-ALLOWED_HOSTS = ['mipokedex.com,www.mipokedex.com']
+ALLOWED_HOSTS = ['mipokedex.com,www.mipokedex.com, localhost']
+#ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -135,3 +138,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+try:
+    from local_settings import *
+except ImportError as e:
+    pass
