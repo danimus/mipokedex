@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: "/static/templates/pages/home.html",
             controller: "MapController",
             data: {
-                pageTitle: 'Home'
+                pageTitle: 'Find all the Pokemon near you!'
             }
         });
 
@@ -19,42 +19,42 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('contact', {
             url: "/contact",
             templateUrl: "/static/templates/pages/contact.html",
-            controller: "ConctactController",
+            controller: "ContactController",
             data: {
-                pageTitle: 'Contact'
+                pageTitle: 'Contact us'
             }
         });
 
     $urlRouterProvider.otherwise('/');
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
 
 });
 
 app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyByk399DfLeIwm1y64P-hMlYhUkC9avX88',
+        key: 'AIzaSyBTKAzma0NVpnFLoT0cX_tGn0goM9j4NlI',
         v: '3',
         libraries: 'places'
     });
 });
 
-// app.directive('updateTitle', ['$rootScope', '$timeout',
-//     function($rootScope, $timeout) {
-//         return {
-//             link: function(scope, element) {
+app.directive('updateTitle', ['$rootScope', '$timeout',
+    function($rootScope, $timeout) {
+        return {
+            link: function(scope, element) {
 
-//                 var listener = function(event, toState) {
+                var listener = function(event, toState) {
 
-//                     var title = 'MiPokedex';
-//                     if (toState.data && toState.data.pageTitle) title = "MiPokedex | " + toState.data.pageTitle;
+                    var title = 'MiPokedex';
+                    if (toState.data && toState.data.pageTitle) title = "MiPokédex | " + toState.data.pageTitle;
 
-//                     $timeout(function() {
-//                         element.text(title);
-//                     }, 0, false);
-//                 };
+                    $timeout(function() {
+                        element.text(title);
+                    }, 0, false);
+                };
 
-//                 $rootScope.$on('$stateChangeSuccess', listener);
-//             }
-//         };
-//     }
-// ]);
+                $rootScope.$on('$stateChangeSuccess', listener);
+            }
+        };
+    }
+]);
