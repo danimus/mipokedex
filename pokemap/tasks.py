@@ -64,15 +64,18 @@ def find_poi(coords, position):
 		timestamps = [0,] * len(cell_ids)
 		api.get_map_objects(latitude = util.f2i(lat), longitude = util.f2i(lng), since_timestamp_ms = timestamps, cell_id = cell_ids)
 		response_dict = api.call()
-		if 'status' in response_dict['responses']['GET_MAP_OBJECTS']:
-			if response_dict['responses']['GET_MAP_OBJECTS']['status'] == 1:
-				for map_cell in response_dict['responses']['GET_MAP_OBJECTS']['map_cells']:
-					if 'wild_pokemons' in map_cell:
-						for pokemon in map_cell['wild_pokemons']:
-							pokemon['hides_at'] = time.time() + pokemon['time_till_hidden_ms']/1000
-							pokemon['icon'] = '/static/img/pokemon/'+str(pokemon['pokemon_data']['pokemon_id'])+'.png'
-							pokemon['name'] = pokemon_list[str(pokemon['pokemon_data']['pokemon_id'])]
-							poi.append(pokemon)
+		
+		if len(response_dict['responses']) > 0:
+			if response_dict['responses']['GET_MAP_OBJECTS']:
+				if 'status' in response_dict['responses']['GET_MAP_OBJECTS']:
+					if response_dict['responses']['GET_MAP_OBJECTS']['status'] == 1:
+						for map_cell in response_dict['responses']['GET_MAP_OBJECTS']['map_cells']:
+							if 'wild_pokemons' in map_cell:
+								for pokemon in map_cell['wild_pokemons']:
+									pokemon['hides_at'] = time.time() + pokemon['time_till_hidden_ms']/1000
+									pokemon['icon'] = '/static/img/pokemon/'+str(pokemon['pokemon_data']['pokemon_id'])+'.png'
+									pokemon['name'] = pokemon_list[str(pokemon['pokemon_data']['pokemon_id'])]
+									poi.append(pokemon)
 
 
 	return poi
