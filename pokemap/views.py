@@ -43,11 +43,11 @@ def PokemonLocation(request, latitude, longitude):
 	coords = generate_spiral(position[0], position[1], step_size, step_limit)
 
 	job = group([
-		find_poi.subtask((coords[0:10],position,)),
-		find_poi.subtask((coords[10:20],position,)),
-		find_poi.subtask((coords[20:30],position,)),
-		find_poi.subtask((coords[30:40],position,)),
-		find_poi.subtask((coords[40:50],position,)),
+		find_poi.subtask((coords[0:10],position, 1)),
+		find_poi.subtask((coords[10:20],position, 2)),
+		find_poi.subtask((coords[20:30],position, 3)),
+		find_poi.subtask((coords[30:40],position, 4)),
+		find_poi.subtask((coords[40:50],position, 1)),
 	])
 
 	result = job.apply_async()
